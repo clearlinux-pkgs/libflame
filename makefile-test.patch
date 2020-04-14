@@ -1,0 +1,49 @@
+--- a/test/Makefile-org	2019-08-09 11:12:20.000000000 -0700
++++ b/test/Makefile	2020-04-17 09:12:52.635185113 -0700
+@@ -37,7 +37,7 @@
+ # Uncomment and modify these definitions if you wish to override the values
+ # present in the master config makefile fragment.
+ # CC             := gcc
+-# LINKER         := $(CC)
++LINKER         := $(CC)
+ # CFLAGS         := -g -O2 -Wall -Wno-comment
+ # LDFLAGS        := 
+ # INSTALL_PREFIX := $(HOME)/flame
+@@ -52,8 +52,9 @@
+ # the libflame test suite. Modify these definitions if needed.
+ LIBBLAS_PATH   := $(INSTALL_LIBDIR)
+ #LIBBLAS        := $(LIBBLAS_PATH)/libblas.a
+-LIBBLAS        := $(LIBBLAS_PATH)/libopenblas.a
++#LIBBLAS        := $(LIBBLAS_PATH)/libopenblas.a
+ #LIBBLAS        := $(HOME)/blis/lib/libblis.a
++LIBBLAS=/usr/lib64/libopenblas.so
+ 
+ # LAPACK implementation path. These values only matter if libflame was
+ # configured with the external-lapack-interfaces option enabled. Modify
+@@ -68,14 +69,14 @@
+ #
+ 
+ TEST_SRC_PATH  := src
+-TEST_OBJ_PATH  := obj
++TEST_OBJ_PATH  := src
+ 
+ #FLA_LIB_PATH   := $(INSTALL_PREFIX)/lib
+ #FLA_INC_PATH   := $(INSTALL_PREFIX)/include
+ FLA_LIB_PATH   := $(LIB_PATH)
+ FLA_INC_PATH   := $(INC_PATH)
+-LIBFLAME       := $(FLA_LIB_PATH)/libflame.a
+-#LIBFLAME       := $(FLA_LIB_PATH)/libflame.so
++#LIBFLAME       := $(FLA_LIB_PATH)/libflame.a
++LIBFLAME       := $(FLA_LIB_PATH)/libflame.so
+ 
+ CFLAGS         += -I$(FLA_INC_PATH) -I$(TEST_SRC_PATH)
+ 
+@@ -90,7 +91,7 @@
+ 	$(CC) $(CFLAGS) -c $< -o $@
+ 
+ test_$(FNAME): $(TEST_OBJS)
+-	$(LINKER) $(TEST_OBJS) $(LIBFLAME) $(LIBLAPACK) $(LIBBLAS) $(LDFLAGS) -o $(TEST_BIN)
++	$(LINKER) $(TEST_OBJS) $(LIBFLAME) $(LIBBLAS) $(LDFLAGS) -lm -o $(TEST_BIN)
+ 
+ clean:
+ 	$(RM_F) $(TEST_OBJS) $(TEST_BIN)

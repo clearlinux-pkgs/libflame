@@ -1,0 +1,7 @@
+--enable-max-arg-list-hack 
+--enable-dynamic-build 
+--enable-lapack2flame
+--enable-multithreading=openmp
+--enable-blas3-front-end-cntl-trees
+--enable-cblas-interfaces
+--enable-supermatrix

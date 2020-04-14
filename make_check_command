@@ -1,0 +1,14 @@
+pushd ../buildavx512/
+cd test
+make LIB_PATH=%{buildroot}/usr/lib64 INC_PATH=%{buildroot}/usr/include
+LD_LIBRARY_PATH=%{buildroot}/usr/lib64/haswell/avx512_1 ./test_libflame.x
+popd
+pushd ../buildavx2/
+cd test
+make LIB_PATH=%{buildroot}/usr/lib64 INC_PATH=%{buildroot}/usr/include
+LD_LIBRARY_PATH=%{buildroot}/usr/lib64/haswell ./test_libflame.x
+popd 
+cd test
+make LIB_PATH=%{buildroot}/usr/lib64 INC_PATH=%{buildroot}/usr/include
+LD_LIBRARY_PATH=%{buildroot}/usr/lib64 ./test_libflame.x
+
